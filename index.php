@@ -41,8 +41,8 @@ $objPHPExcel = PHPExcel_IOFactory::load($_SERVER['DOCUMENT_ROOT']."/upload/".$_F
 
         $cell1 = $worksheet->getCellByColumnAndRow(1, $row);//Адрес производства
         $cell2 = $worksheet->getCellByColumnAndRow(2, $row);//Вид работ
-        $cell3 = $worksheet->getCellByColumnAndRow(3, $row);//Начало производства работ
-        $cell4 = $worksheet->getCellByColumnAndRow(4, $row);//Окончание производства работ
+        $cell3 = $worksheet->getCellByColumnAndRow(3, $row)->getFormattedValue();//Начало производства работ
+        $cell4 = $worksheet->getCellByColumnAndRow(4, $row)->getFormattedValue();//Окончание производства работ
         $cell5 = $worksheet->getCellByColumnAndRow(5, $row);//Альтернатиивное водоснабжение
 
 
