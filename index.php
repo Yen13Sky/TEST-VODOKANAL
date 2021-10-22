@@ -47,12 +47,9 @@ $objPHPExcel = PHPExcel_IOFactory::load($_SERVER['DOCUMENT_ROOT']."/upload/".$_F
 
 
 
-        $Adresses = "INSERT INTO `addresses`(`ADDRESS_WORKS`) VALUES ($cell1)";// Запрос заполняет таблицу addresses
-        echo "$Adresses";
-        $IDAddr = "SELECT `ID` FROM `addresses`";// Сохраняем в переменную ID адреса
-        $sql = "INSERT INTO `works`(`ADR_ID`, `DATE_START`, `DATE_END`, `TYPE_WORKS`, `ALTER_WATER`) VALUES ($IDAddr, $cell3, $cell4, $cell2, $cell5)";//Заполняем таблицу полученными данными
-        $query = mysqli_query($connection, $sql) or die(mysqli_error($connection));// Выполняем запрос или выдаем ошибку
-        if ($query)// Проверка на выполнение запроса
+        $sql =  "INSERT INTO `works`(`ADR_ID`, `DATE_START`, `DATE_END`, `TYPE_WORKS`, `ALTER_WATER`) VALUES ((SELECT `ID` FROM `addresses` WHERE  `ADDRESS_WORKS` LIKE '$cell1%'), '$cell3', '$cell4', '$cell2', '$cell5')";//Заполняем таблицу полученными данными
+        $result = mysqli_query($connection, $sql) or die(mysqli_error($connection));
+        if ($result)// Проверка на выполнение запроса
         {
 
             $sqlHtml = mysqli_query($connection, "SELECT * FROM `works` INNER JOIN `addresses` ON `works.ADR_ID` = `addresses.ID`");// Запрос на получение всех значений из таблицы works, совмещенной по адресам из таблицы addresses
